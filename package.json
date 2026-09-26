@@ -1,0 +1,33 @@
+{
+  "name": "bizaccess-web",
+  "version": "1.0.0",
+  "description": "A browser-based business user management system built with Express, TypeScript, EJS, and SQLite.",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/app.js",
+    "test": "npm run build && node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Henryohia/BizAccess-Web.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Henryohia/BizAccess-Web/issues"
+  },
+  "homepage": "https://github.com/Henryohia/BizAccess-Web#readme",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.2",
+    "typescript": "^5.9.2"
+  }
+}

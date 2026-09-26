@@ -1,0 +1,19 @@
+<%- include("partials/header", { title }) %>
+
+<main class="page-shell narrow-shell">
+    <a class="back-link" href="/users/<%= user.id %>">← Back to user details</a>
+    <section class="content-card form-page-card">
+        <p class="eyebrow">Update record</p>
+        <h1>Edit business user</h1>
+        <p class="lead">Update the details for <%= user.name %>.</p>
+        <%- include("partials/user-form", {
+            action: `/users/${user.id}/edit`,
+            user,
+            roles,
+            errors,
+            submitLabel: "Save changes"
+        }) %>
+    </section>
+</main>
+
+<%- include("partials/footer") %>

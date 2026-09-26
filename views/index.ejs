@@ -1,0 +1,55 @@
+<%- include("partials/header", { title }) %>
+
+<main class="page-shell">
+    <section class="welcome-panel">
+        <div>
+            <p class="eyebrow">Business user management</p>
+            <h1>Welcome to BizAccess</h1>
+            <p class="lead">Manage your business users and keep their information up to date.</p>
+            <a class="button button-primary" href="/users">Manage users</a>
+        </div>
+        <div class="welcome-mark" aria-hidden="true">B</div>
+    </section>
+
+    <section class="dashboard-grid" aria-label="User overview">
+        <article class="stat-card">
+            <p class="eyebrow">Business users</p>
+            <p class="stat-number"><%= userCount %></p>
+            <p class="muted">Users currently stored in BizAccess</p>
+        </article>
+        <article class="quick-action-card">
+            <p class="eyebrow">Quick action</p>
+            <h2>Keep your directory current</h2>
+            <p class="muted">Add new colleagues, search existing records, or update a user's details.</p>
+            <a class="text-link" href="/users">Open user directory <span aria-hidden="true">→</span></a>
+        </article>
+    </section>
+
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Recently added</p>
+                <h2>Latest business users</h2>
+            </div>
+            <a class="text-link" href="/users">View all <span aria-hidden="true">→</span></a>
+        </div>
+        <% if (recentUsers.length === 0) { %>
+            <p class="empty-state">No business users yet. Add your first user to get started.</p>
+        <% } else { %>
+            <div class="recent-list">
+                <% recentUsers.forEach((user) => { %>
+                    <a class="recent-user" href="/users/<%= user.id %>">
+                        <span class="avatar" aria-hidden="true"><%= user.name.charAt(0).toUpperCase() %></span>
+                        <span class="recent-user-main">
+                            <strong><%= user.name %></strong>
+                            <span class="muted"><%= user.email %></span>
+                        </span>
+                        <span class="role-pill"><%= user.role %></span>
+                    </a>
+                <% }); %>
+            </div>
+        <% } %>
+    </section>
+</main>
+
+<%- include("partials/footer") %>

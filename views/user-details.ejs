@@ -1,0 +1,41 @@
+<%- include("partials/header", { title }) %>
+
+<main class="page-shell narrow-shell">
+    <a class="back-link" href="/users">← Back to users</a>
+    <% if (notice) { %>
+        <div class="notice notice-success" role="status"><%= notice %></div>
+    <% } %>
+    <section class="content-card detail-card">
+        <div class="detail-heading">
+            <span class="avatar avatar-large" aria-hidden="true"><%= user.name.charAt(0).toUpperCase() %></span>
+            <div>
+                <p class="eyebrow">Business user #<%= user.id %></p>
+                <h1><%= user.name %></h1>
+                <span class="role-pill"><%= user.role %></span>
+            </div>
+        </div>
+        <dl class="detail-list">
+            <div>
+                <dt>Email address</dt>
+                <dd><a class="email-link" href="mailto:<%= user.email %>"><%= user.email %></a></dd>
+            </div>
+            <div>
+                <dt>Business role</dt>
+                <dd><%= user.role %></dd>
+            </div>
+            <div>
+                <dt>User ID</dt>
+                <dd><%= user.id %></dd>
+            </div>
+        </dl>
+        <div class="detail-actions">
+            <a class="button button-primary" href="/users/<%= user.id %>/edit">Edit user</a>
+            <form action="/users/<%= user.id %>/delete" method="POST"
+                onsubmit="return confirm('Delete this business user? This cannot be undone.');">
+                <button class="button button-danger" type="submit">Delete user</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<%- include("partials/footer") %>

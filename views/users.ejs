@@ -1,0 +1,94 @@
+<%- include("partials/header", { title }) %>
+
+<main class="page-shell">
+    <section class="page-heading">
+        <div>
+            <p class="eyebrow">Directory</p>
+            <h1>Business users</h1>
+            <p class="lead">Add, find, and manage the people who use your business services.</p>
+        </div>
+        <span class="count-badge"><%= users.length %> <%= users.length === 1 ? "user" : "users" %></span>
+    </section>
+
+    <% if (notice) { %>
+        <div class="notice notice-success" role="status"><%= notice %></div>
+    <% } %>
+
+    <div class="management-grid">
+        <section class="content-card add-user-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">New record</p>
+                    <h2>Add a business user</h2>
+                </div>
+            </div>
+            <%- include("partials/user-form", {
+                action: "/users/add",
+                user: formUser,
+                roles,
+                errors,
+                submitLabel: "Add user"
+            }) %>
+        </section>
+
+        <section class="content-card directory-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Your records</p>
+                    <h2>User directory</h2>
+                </div>
+            </div>
+
+            <form class="search-form" action="/users" method="GET" role="search">
+                <label class="visually-hidden" for="user-search">Search users</label>
+                <input id="user-search" type="search" name="q" value="<%= query %>" maxlength="100"
+                    placeholder="Search name, email, or role">
+                <button class="button button-secondary" type="submit">Search</button>
+                <% if (query) { %>
+                    <a class="clear-link" href="/users">Clear</a>
+                <% } %>
+            </form>
+
+            <% if (users.length === 0 && query) { %>
+                <p class="empty-state">No users match “<%= query %>”. Try another search.</p>
+            <% } else if (users.length === 0) { %>
+                <p class="empty-state">No business users have been added yet.</p>
+            <% } else { %>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col"><span class="visually-hidden">Actions</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach((user) => { %>
+                                <tr>
+                                    <td data-label="Name">
+                                        <a class="user-name-link" href="/users/<%= user.id %>"><%= user.name %></a>
+                                    </td>
+                                    <td data-label="Email"><a class="email-link" href="mailto:<%= user.email %>"><%= user.email %></a></td>
+                                    <td data-label="Role"><span class="role-pill"><%= user.role %></span></td>
+                                    <td data-label="Actions">
+                                        <div class="row-actions">
+                                            <a href="/users/<%= user.id %>/edit">Edit</a>
+                                            <form action="/users/<%= user.id %>/delete" method="POST"
+                                                onsubmit="return confirm('Delete this business user? This cannot be undone.');">
+                                                <button class="link-button link-danger" type="submit">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </section>
+    </div>
+</main>
+
+<%- include("partials/footer") %>
