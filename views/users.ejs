@@ -43,7 +43,13 @@
                 <label class="visually-hidden" for="user-search">Search users</label>
                 <input id="user-search" type="search" name="q" value="<%= query %>" maxlength="100"
                     placeholder="Search name, email, or role">
-                <button class="button button-secondary" type="submit">Search</button>
+                <button class="button button-secondary search-button" type="submit">
+                    <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                        <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                        <path d="m16 16 4.5 4.5"></path>
+                    </svg>
+                    <span>Search</span>
+                </button>
                 <% if (query) { %>
                     <a class="clear-link" href="/users">Clear</a>
                 <% } %>

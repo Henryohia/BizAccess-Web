@@ -268,6 +268,20 @@ h2 {
     background: #f0f6f2;
 }
 
+.search-button {
+    gap: 8px;
+}
+
+.search-icon {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2;
+}
+
 .button-danger {
     color: #fff;
     background: #b44242;
