@@ -12,7 +12,7 @@ BizAccess Web is a browser-based Business User Management System that builds on 
 - SQLite storage that persists between application restarts
 - Responsive pages with accessible form labels and navigation
 
-Each business user has an automatically assigned ID, a name, an email address, and one of three roles: Administrator, Manager, or Staff.
+Each business user has an automatically assigned ID, a name, an email address, and one of several business roles such as Administrator, Director, Manager, Supervisor, Team Lead, Analyst, Developer, Support Specialist, or Staff.
 
 ## Technology
 

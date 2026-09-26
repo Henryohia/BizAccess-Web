@@ -1,6 +1,16 @@
 import type Database from "better-sqlite3";
 
-export const userRoles = ["Administrator", "Manager", "Staff"] as const;
+export const userRoles = [
+    "Administrator",
+    "Director",
+    "Manager",
+    "Supervisor",
+    "Team Lead",
+    "Analyst",
+    "Developer",
+    "Support Specialist",
+    "Staff"
+] as const;
 export type UserRole = (typeof userRoles)[number];
 
 export interface BusinessUser {

@@ -76,7 +76,7 @@ test("supports dashboard, validated CRUD, search, and user details", async () =>
         body: new URLSearchParams({
             name: "Ada Lovelace",
             email: "ada@example.com",
-            role: "Manager"
+            role: "Director"
         }),
         redirect: "manual"
     });
@@ -111,7 +111,7 @@ test("supports dashboard, validated CRUD, search, and user details", async () =>
         body: new URLSearchParams({
             name: "Ada Lovelace",
             email: "ada.lovelace@example.com",
-            role: "Administrator"
+            role: "Developer"
         }),
         redirect: "manual"
     });
@@ -119,7 +119,7 @@ test("supports dashboard, validated CRUD, search, and user details", async () =>
     assert.equal(edit.headers.get("location"), "/users/1?notice=updated");
 
     const updatedDetails = await fetch(`${baseUrl}/users/1`);
-    assert.match(await updatedDetails.text(), /Administrator/);
+    assert.match(await updatedDetails.text(), /Developer/);
 
     const deleteUser = await fetch(`${baseUrl}/users/1/delete`, {
         method: "POST",
