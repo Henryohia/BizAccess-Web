@@ -26,8 +26,25 @@ export interface UserInput {
     role: string;
 }
 
+export interface UserRoleSummary {
+    name: UserRole;
+    userCount: number;
+}
+
 export function countUsers(db: Database.Database): number {
     return (db.prepare("SELECT COUNT(*) AS count FROM users").get() as { count: number }).count;
+}
+
+export function getUserRoleSummaries(db: Database.Database): UserRoleSummary[] {
+    const counts = db.prepare(`
+        SELECT role, COUNT(*) AS count FROM users GROUP BY role
+    `).all() as Array<{ role: string; count: number }>;
+    const countByRole = new Map(counts.map(({ role, count }) => [role, count]));
+
+    return userRoles.map((name) => ({
+        name,
+        userCount: countByRole.get(name) ?? 0
+    }));
 }
 
 export function getRecentUsers(db: Database.Database): BusinessUser[] {

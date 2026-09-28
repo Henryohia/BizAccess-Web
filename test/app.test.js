@@ -41,6 +41,16 @@ test("initializes the users schema in SQLite", () => {
     }
 });
 
+test("renders all business roles with live user counts", async () => {
+    const emptyRolesPage = await fetch(`${baseUrl}/roles`);
+    assert.equal(emptyRolesPage.status, 200);
+    const emptyRolesHtml = await emptyRolesPage.text();
+    assert.match(emptyRolesHtml, /Business roles/);
+    assert.match(emptyRolesHtml, /Administrator/);
+    assert.match(emptyRolesHtml, /Support Specialist/);
+    assert.match(emptyRolesHtml, /<p class="stat-number">0<\/p>\s*<p class="muted">users assigned<\/p>/);
+});
+
 test("supports dashboard, validated CRUD, search, and user details", async () => {
     const dashboard = await fetch(baseUrl);
     assert.equal(dashboard.status, 200);
@@ -82,6 +92,13 @@ test("supports dashboard, validated CRUD, search, and user details", async () =>
     });
     assert.equal(addUser.status, 302);
     assert.equal(addUser.headers.get("location"), "/users?notice=added");
+
+    const populatedRolesPage = await fetch(`${baseUrl}/roles`);
+    assert.equal(populatedRolesPage.status, 200);
+    assert.match(
+        await populatedRolesPage.text(),
+        /<p class="stat-number">1<\/p>\s*<p class="muted">user assigned<\/p>/
+    );
 
     const duplicateUser = await fetch(`${baseUrl}/users/add`, {
         method: "POST",

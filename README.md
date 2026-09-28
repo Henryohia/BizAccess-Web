@@ -1,107 +1,54 @@
-# BizAccess Web
+# Overview
 
-BizAccess Web is a browser-based Business User Management System that builds on the original TypeScript terminal project. It uses TypeScript, Express, EJS, and SQLite to manage business users.
+BizAccess Web is a browser-based business user management application. It lets a user maintain a directory of business users, search for people, and review the roles in use across the organization. User information is stored in a local SQLite database.
 
-## Features
-
-- Dashboard with the total user count and recently added users
-- Search users by name, email address, or role
-- Add, view, update, and delete users
-- Server-side input validation
-- Case-insensitive duplicate email prevention
-- Responsive pages with accessible form labels and navigation
-
-Each user has an automatically assigned ID, a name, an email address, and a role: Administrator, Director, Manager, Supervisor, Team Lead, Analyst, Developer, Support Specialist, or Staff.
-
-## Technology
-
-- Node.js and TypeScript
-- Express 5 for routing and form handling
-- EJS for server-rendered pages
-- SQLite with `better-sqlite3` for data storage
-- HTML and CSS for the browser interface
-
-## Run locally
-
-Install dependencies:
+To start the application on your computer, open a terminal in the project folder and run:
 
 ```powershell
 npm install
-```
-
-Build the application and run the tests:
-
-```powershell
 npm test
-```
-
-Start the server:
-
-```powershell
 npm start
 ```
 
-Open <http://localhost:3000>. The user directory is at <http://localhost:3000/users>. The server uses the `PORT` environment variable when provided, or port 3000 otherwise.
+The test command builds the TypeScript code and runs the automated tests. Once the server starts, open [http://localhost:3000](http://localhost:3000) to see the dashboard. The user directory is available at [http://localhost:3000/users](http://localhost:3000/users), and the roles page is at [http://localhost:3000/roles](http://localhost:3000/roles). The SQLite database is created automatically the first time the application starts.
 
-SQLite creates `database/bizaccess.db` automatically when the server starts. The `database` folder does not need to be created manually.
+I created this software to build on my TypeScript experience and develop practical skills in web application design. It brings together server-side routing, dynamic page rendering, form validation, database operations, and responsive user interfaces in one project.
 
-## Deploying to Render
+**Software Demo Video:** Replace this placeholder with a 4–5 minute YouTube demonstration showing how to start the server, navigate the pages, and walk through the application code.
 
-Render deploys this project as a **Web Service** from a GitHub repository. Before deploying, commit and push the project to GitHub. In the Render dashboard, create a new Web Service, connect the BizAccess-Web repository, and configure:
+[Software Demo Video](http://youtube.link.goes.here)
 
-| Setting | Value |
-| --- | --- |
-| Runtime | Node |
-| Build command | `npm ci && npm run build` |
-| Start command | `npm start` |
+# Web Pages
 
-Render sets the `PORT` environment variable automatically; BizAccess listens on that port. After the first successful deployment, Render provides a public `onrender.com` URL.
+- **Dashboard (`/`)** — The home page summarizes the number of business users and displays up to five recently added records. Links take the user to the directory or an individual user's details.
+- **Business Users (`/users`)** — This page combines a form for adding a user with the user directory. The directory is generated from database records and supports searching by name, email, or role. Each row links to user details and provides edit and delete actions. Successful actions display a status message.
+- **User Details (`/users/:id`)** — Selecting a user's name opens a page showing that user's ID, name, email, and role. The page links to the edit form and provides a delete action.
+- **Edit Business User (`/users/:id/edit`)** — The edit link opens a form pre-filled with the selected user's current information. Submitting valid changes updates the database and returns to that user's details.
+- **Business Roles (`/roles`)** — The navigation links to a dynamically generated summary of all available roles and the number of users assigned to each. Each role links to a filtered user directory.
+- **Error page** — Invalid page and user URLs show a helpful message and a link back to the dashboard.
 
-### Important: security and saved data
+The shared navigation connects the dashboard, user directory, and roles page. User actions and directory links transition between the directory, details, and edit pages.
 
-**The current app has no login or access control.** Anyone who can open the public URL can view, add, edit, and delete business-user records. Do not put real or confidential user information in a public deployment.
+# Development Environment
 
-The app currently uses SQLite and stores its database in the service's local filesystem. Render's local filesystem is not persistent across all redeploys and service replacements, so user records may be lost. A persistent disk requires changes to configure the database path and a Render plan that supports disks. A managed Render PostgreSQL database is another option, but the current app does **not** use PostgreSQL yet.
+I used Visual Studio Code, Node.js, npm, Git, and PowerShell to develop and test the application.
 
-Before using this app for real users, add administrator authentication and choose and implement persistent database storage. For the PostgreSQL option, migrate the database layer and queries to PostgreSQL before attaching a Render database. The current Render steps are suitable only for a no-sensitive-data demonstration.
+The application is written in **TypeScript** and runs on **Node.js**. **Express** handles routes and form submissions, **EJS** renders pages using data from the application, and **better-sqlite3** stores the user records in SQLite. The interface uses HTML and CSS, and the automated tests use Node.js's built-in test runner.
 
-## Project structure
+# Useful Websites
 
-```text
-BizAccess-Web/
-├── public/
-│   └── styles.css
-├── src/
-│   ├── app.ts
-│   ├── controllers/
-│   │   ├── dashboard.ts
-│   │   └── users.ts
-│   ├── database.ts
-│   ├── models/
-│   │   └── users.ts
-│   └── routes/
-│       ├── index.ts
-│       └── users.ts
-├── test/
-│   └── app.test.js
-├── views/
-│   ├── partials/
-│   ├── index.ejs
-│   ├── users.ejs
-│   ├── user-details.ejs
-│   ├── user-edit.ejs
-│   └── error.ejs
-├── package.json
-└── tsconfig.json
-```
+* [Node.js Documentation](https://nodejs.org/docs/latest/api/)
+* [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+* [Express Documentation](https://expressjs.com/)
+* [EJS Documentation](https://ejs.co/)
+* [SQLite Documentation](https://www.sqlite.org/docs.html)
+* [better-sqlite3 Documentation](https://github.com/WiseLibs/better-sqlite3)
+* [MDN Web Docs](https://developer.mozilla.org/)
 
-`src/app.ts` configures Express and shared middleware. Route modules map URLs to controllers, controllers validate requests and prepare page data, and `src/models/users.ts` contains the SQLite queries. This MVC separation follows the structure of the related CSE 340 project while adapting it to BizAccess's business-user domain.
+# Future Work
 
-`src/database.ts` initializes the SQLite database. EJS templates render the dashboard and user workflows, and the integration tests exercise the HTTP routes against an in-memory database.
-
-## Possible next steps
-
-- Add administrator login and protect user-management routes
-- Configure durable database storage for hosting
-- Migrate to PostgreSQL if using a managed Render database
-- Add pagination for larger directories and audit history for user changes
+* Add administrator authentication and protect user-management actions before using the application with real or sensitive records.
+* Configure persistent database storage and migrate from SQLite to PostgreSQL if deploying with a hosted PostgreSQL service.
+* Add pagination and sorting for larger user directories.
+* Add audit history to record changes to business user information.
+* Record and publish the 4–5 minute software demonstration video, then replace the placeholder link above.

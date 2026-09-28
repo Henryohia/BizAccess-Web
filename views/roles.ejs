@@ -1,0 +1,30 @@
+<%- include("partials/header", { title }) %>
+
+<main class="page-shell">
+    <section class="page-heading">
+        <div>
+            <p class="eyebrow">Organization</p>
+            <h1>Business roles</h1>
+            <p class="lead">See the roles available in BizAccess and how many users currently hold each one.</p>
+        </div>
+        <span class="count-badge"><%= userCount %> <%= userCount === 1 ? "user" : "users" %></span>
+    </section>
+
+    <section class="roles-grid" aria-label="Business roles and user counts">
+        <% roles.forEach((role) => { %>
+            <article class="content-card role-card">
+                <div class="role-card-heading">
+                    <span class="role-icon" aria-hidden="true"><%= role.name.charAt(0) %></span>
+                    <span class="role-pill"><%= role.name %></span>
+                </div>
+                <p class="stat-number"><%= role.userCount %></p>
+                <p class="muted"><%= role.userCount === 1 ? "user assigned" : "users assigned" %></p>
+                <a class="text-link" href="/users?q=<%= encodeURIComponent(role.name) %>">
+                    View users <span aria-hidden="true">→</span>
+                </a>
+            </article>
+        <% }); %>
+    </section>
+</main>
+
+<%- include("partials/footer") %>

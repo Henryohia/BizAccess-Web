@@ -438,6 +438,48 @@ h2 {
     padding: 9px 13px;
 }
 
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.role-card {
+    padding: 22px 24px;
+}
+
+.role-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 20px;
+}
+
+.role-icon {
+    display: inline-grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 12px;
+    color: var(--green-700);
+    background: var(--green-100);
+    font-weight: 750;
+}
+
+.role-card .stat-number {
+    font-size: 2rem;
+}
+
+.role-card > .muted {
+    margin: 5px 0 0;
+    font-size: 0.84rem;
+}
+
+.role-card .text-link {
+    margin-top: 18px;
+}
+
 .page-heading {
     margin-bottom: 28px;
 }
@@ -735,6 +777,10 @@ tbody tr:last-child td {
 }
 
 @media (max-width: 920px) {
+    .roles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .management-grid {
         grid-template-columns: 1fr;
     }
@@ -801,6 +847,11 @@ tbody tr:last-child td {
         grid-template-columns: 1fr;
         gap: 13px;
         margin: 15px 0;
+    }
+
+    .roles-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
     }
 
     .stat-card,

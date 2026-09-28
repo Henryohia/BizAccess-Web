@@ -16,6 +16,7 @@
         <nav class="main-nav" aria-label="Main navigation">
             <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Dashboard</a>
             <a href="/users" class="<%= currentPath.startsWith('/users') ? 'active' : '' %>">Users</a>
+            <a href="/roles" class="<%= currentPath === '/roles' ? 'active' : '' %>">Roles</a>
         </nav>
         <span class="admin-label"><span class="status-dot" aria-hidden="true"></span>Management workspace</span>
     </header>
