@@ -35,6 +35,9 @@ I used Visual Studio Code, Node.js, npm, Git, and PowerShell to develop and test
 
 The application is written in **TypeScript** and runs on **Node.js**. **Express** handles routes and form submissions, **EJS** renders pages using data from the application, and **better-sqlite3** stores the user records in SQLite. The interface uses HTML and CSS, and the automated tests use Node.js's built-in test runner.
 
+
+Rendered pages are responsive and adapt to different screen sizes. The application is designed for desktop and tablet use, with a mobile-friendly layout. The website is hosted at **https://bizaccess-web.onrender.com.**
+
 # Useful Websites
 
 * [Node.js Documentation](https://nodejs.org/docs/latest/api/)
