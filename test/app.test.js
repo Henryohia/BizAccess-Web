@@ -1,3 +1,6 @@
+// test/app.test.js
+
+// This test suite verifies the functionality of the BizAccess application, including database initialization, user management, and role rendering.
 const assert = require("node:assert/strict");
 const { once } = require("node:events");
 const Database = require("better-sqlite3");

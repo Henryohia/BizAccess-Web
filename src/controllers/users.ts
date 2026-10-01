@@ -1,3 +1,5 @@
+// src/controllers/users.ts
+
 import type Database from "better-sqlite3";
 import type { RequestHandler, Response } from "express";
 import {
@@ -10,6 +12,13 @@ import {
     userRoles,
     type UserInput
 } from "../models/users";
+
+// Documentation for the users controller
+/**
+ * Creates a users controller for handling user-related requests.
+ * @param db - The database instance.
+ * @returns An object containing request handlers for user-related routes.
+ */
 
 const notices: Record<string, string> = {
     added: "Business user added successfully.",
@@ -25,6 +34,13 @@ function bodyValue(body: unknown, key: string): string {
     const value = (body as Record<string, unknown>)[key];
     return typeof value === "string" ? value.trim() : "";
 }
+
+// Validates user input for creating or updating a user.
+/**
+ * Validates user input for creating or updating a user.
+ * @param body - The request body.
+ * @returns An object containing the validated values and any errors.
+ */
 
 function validateUserInput(body: unknown): { values: UserInput; errors: string[] } {
     const values = {
@@ -47,6 +63,13 @@ function validateUserInput(body: unknown): { values: UserInput; errors: string[]
     return { values, errors };
 }
 
+// Parses a user ID from a string or string array.
+/**
+ * Parses a user ID from a string or string array.
+ * @param value - The value to parse.
+ * @returns The parsed user ID or undefined if invalid.
+ */
+
 function parseUserId(value: string | string[] | undefined): number | undefined {
     if (typeof value !== "string") {
         return undefined;
@@ -57,6 +80,19 @@ function parseUserId(value: string | string[] | undefined): number | undefined {
     const id = Number(value);
     return Number.isSafeInteger(id) ? id : undefined;
 }
+
+// Renders the users page with the provided data.
+/**
+ * Renders the users page with the provided data.   
+ * @param response - The Express response object.
+ * @param db - The database instance.
+ * @param query - The search query.
+ * @param errors - An array of error messages.
+ * @param formUser - The user input values for the form.
+ * @param status - The HTTP status code.
+ * @param notice - An optional notice message.
+ * @returns The rendered users page.
+ */ 
 
 function renderUsers(
     response: Response,
@@ -78,12 +114,27 @@ function renderUsers(
     });
 }
 
+// Renders a 404 error page for a user not found.
+/**
+ * Renders a 404 error page for a user not found.
+ * @param response - The Express response object.
+ * @returns The rendered error page with a 404 status code.
+ */
+
 function renderNotFound(response: Response) {
     return response.status(404).render("error", {
         title: "User not found",
         message: "The business user you requested could not be found."
     });
 }
+
+// Creates a users controller for handling user-related requests.
+/**
+ * Creates a users controller for handling user-related requests.
+ * @param db - The database instance.
+ * @returns An object containing request handlers for user-related routes.
+ */
+
 
 export function createUsersController(db: Database.Database) {
     const list: RequestHandler = (request, response) => {

@@ -1,9 +1,12 @@
+// src/app.ts
+
 import express, { type NextFunction, type Request, type Response } from "express";
 import type Database from "better-sqlite3";
 import { resolve } from "node:path";
 import { createDatabase } from "./database";
 import { createRoutes } from "./routes";
 
+// Creates and configures the Express application.
 export function createApp(db: Database.Database) {
     const app = express();
     app.disable("x-powered-by");
@@ -24,6 +27,7 @@ export function createApp(db: Database.Database) {
         });
     });
 
+    // Error handling middleware for unhandled errors.
     app.use((error: unknown, _request: Request, response: Response, next: NextFunction) => {
         if (response.headersSent) {
             return next(error);
@@ -40,7 +44,8 @@ export function createApp(db: Database.Database) {
         if (status === 500) {
             console.error("Unhandled BizAccess Web request error:", error);
         }
-
+        
+        // Render the error page with a user-friendly message based on the status code.
         return response.status(status).render("error", {
             title: status === 413 ? "Form too large" : "Something went wrong",
             message: status === 413

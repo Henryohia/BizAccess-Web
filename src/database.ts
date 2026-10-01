@@ -1,6 +1,16 @@
+// src/database.ts
+
+// This module provides a function to create and configure a SQLite database using the better-sqlite3 library.
 import Database from "better-sqlite3";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+
+// Creates and configures a SQLite database instance.
+/**
+ * Creates and configures a SQLite database instance.
+ * @param databasePath - The path to the SQLite database file. Defaults to "database/bizaccess.db".
+ * @returns The configured SQLite database instance.
+ */
 
 export function createDatabase(
     databasePath = resolve(__dirname, "..", "database", "bizaccess.db")

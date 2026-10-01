@@ -14,9 +14,9 @@ The test command builds the TypeScript code and runs the automated tests. Once t
 
 I created this software to build on my TypeScript experience and develop practical skills in web application design. It brings together server-side routing, dynamic page rendering, form validation, database operations, and responsive user interfaces in one project.
 
-**Software Demo Video:** Replace this placeholder with a 4–5 minute YouTube demonstration showing how to start the server, navigate the pages, and walk through the application code.
+**Software Demo Video:** 
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/eQuQZloZduc)
 
 # Web Pages
 
